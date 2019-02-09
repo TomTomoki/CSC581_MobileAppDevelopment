@@ -8,13 +8,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+class ViewController:
+UIViewController {
+    @IBOutlet weak var answer: UILabel!
+    
+    
+    @IBAction func onClicked(_ sender: UIButton) {
+        let randomValue = Int.random(in: 1...3)
+        if randomValue == 1 {
+            answer.text = "YES"
+        } else if randomValue == 2 {
+            answer.text = "NO"
+        } else {
+            answer.text = "MAYBE"
+        }
     }
-
-
 }
-
