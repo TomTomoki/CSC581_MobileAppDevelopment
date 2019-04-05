@@ -54,7 +54,6 @@ class ViewController: UIViewController {
         afterOperationClick = true
     }
     
-    
     @IBAction func otherOperators(_ sender: UIButton) {
         if(sender.tag == 11){
             model.clear()
