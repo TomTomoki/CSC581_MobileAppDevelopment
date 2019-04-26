@@ -97,11 +97,11 @@ struct TicTacToeGame {
 
 var game = TicTacToeGame()
 
-game.place(piece: "X", row: 0, column: 0)
-game.place(piece: "X", row: 0, column: 1)
-game.place(piece: "X", row: 0, column: 2)
-game.place(piece: "o", row: 0, column: 2)
-game.place(piece: "o", row: 1, column: 1)
+game.place(piece: "X", inRow: 0, andColumn: 0)
+game.place(piece: "X", inRow: 0, andColumn: 1)
+game.place(piece: "X", inRow: 0, andColumn: 2)
+game.place(piece: "o", inRow: 0, andColumn: 2)
+game.place(piece: "o", inRow: 1, andColumn: 1)
 game.place(piece: "o")
 print(game)
 game.isBoardFull()
