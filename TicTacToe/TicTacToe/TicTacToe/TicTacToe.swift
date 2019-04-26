@@ -1,3 +1,12 @@
+//
+//  TicTacToe.swift
+//  TicTacToe
+//
+//  Created by Kyotani Tomoki on 4/26/19.
+//  Copyright © 2019 David Reed. All rights reserved.
+//
+
+import Foundation
 import UIKit
 
 struct TicTacToeGame {
@@ -94,16 +103,3 @@ struct TicTacToeGame {
         return "Play on..."
     }
 }
-
-var game = TicTacToeGame()
-
-game.place(piece: "X", row: 0, column: 0)
-game.place(piece: "X", row: 0, column: 1)
-game.place(piece: "X", row: 0, column: 2)
-game.place(piece: "o", row: 0, column: 2)
-game.place(piece: "o", row: 1, column: 1)
-game.place(piece: "o")
-print(game)
-game.isBoardFull()
-print(game.status())
-
