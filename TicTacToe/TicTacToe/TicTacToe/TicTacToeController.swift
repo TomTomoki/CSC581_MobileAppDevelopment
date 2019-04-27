@@ -13,9 +13,14 @@ class TicTacToeController: UIViewController {
     var game = TicTacToeGame()
     
     @IBOutlet var boardSpots: [UIButton]!
-    
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var againButton: UIButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateView()
+    }
     
     @IBAction func boardClicked(_ sender: UIButton) {
         if let index = boardSpots.index(of: sender) {
@@ -27,12 +32,11 @@ class TicTacToeController: UIViewController {
             }
         }
     }
-
     
     @IBAction func playAgain(_ sender: UIButton) {
         resultLabel.isHidden = true
         againButton.isHidden = true
-        game = TicTacToeGame()
+        game.restartGame()
         updateView()
     }
     
@@ -46,7 +50,23 @@ class TicTacToeController: UIViewController {
             resultLabel.text = result
             resultLabel.isHidden = false
             againButton.isHidden = false
+            
+            if !game.isOver {
+                game.stopGame()
+                if(result == "X wins!"){
+                    game.updateGameRecord(status: "X")
+                } else if (result == "O wins!"){
+                    game.updateGameRecord(status: "O")
+                } else if (result == "It's a draw."){
+                    game.updateGameRecord(status: "Draws")
+                }
+            }
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let gameHistory = segue.destination as! GameHistoryController
+        gameHistory.game = self.game
     }
 }
 

@@ -2,6 +2,8 @@ import UIKit
 
 struct TicTacToeGame {
     private(set) var board: [[String]] = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+    private(set) var gameHistory = ["X": 0, "O": 0, "Draws": 0]//keep track of X's wins, O's wins, and draws
+    private(set) var isOver = false
     
     mutating func place(piece p: String, inRow r: Int, andColumn c: Int) -> Bool {
         if(board[r][c] != " "){
@@ -93,6 +95,25 @@ struct TicTacToeGame {
         
         return "Play on..."
     }
+    
+    mutating func stopGame() {
+        self.isOver = true
+    }
+    
+    mutating func restartGame() {
+        self.board = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+        isOver = false
+    }
+    
+    mutating func updateGameRecord(status : String) {
+        self.gameHistory[status]! = self.gameHistory[status]! + 1
+    }
+    
+    mutating func resetGameHistory() {
+        self.gameHistory["X"] = 0
+        self.gameHistory["O"] = 0
+        self.gameHistory["Draws"] = 0
+    }
 }
 
 var game = TicTacToeGame()
@@ -103,7 +124,12 @@ game.place(piece: "X", inRow: 0, andColumn: 2)
 game.place(piece: "o", inRow: 0, andColumn: 2)
 game.place(piece: "o", inRow: 1, andColumn: 1)
 game.place(piece: "o")
+game.updateGameRecord(status: "X")
+game.stopGame()
 print(game)
 game.isBoardFull()
 print(game.status())
-
+game.resetGameHistory()
+print(game.gameHistory)
+game.restartGame()
+print(game)
