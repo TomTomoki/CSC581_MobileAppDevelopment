@@ -14,15 +14,21 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ownerName: UILabel!
 }
 
-class SearchItemController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SearchItemController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate {
    
     let cellIdentifier = "CellIdentifier"
     var items = [PFObject(className: "items")]
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var itemTitlePO: UILabel!
+    @IBOutlet weak var ownerNamePO: UILabel!
+    @IBOutlet weak var contactInfoPO: UILabel!
+    @IBOutlet var detailPopOver: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.delegate = self
         
         let query = PFQuery(className: "items")
         query.findObjectsInBackground {(data, error) in
@@ -31,30 +37,22 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
                 
                 if let itemData = data {
                     self.items = itemData
-                    print(self.items)
-                    
                     self.tableView.reloadData()
                 }
             } else {
                 print("Retriving Error")
             }
         }
-        
-        """
-        let itemTable = PFObject(className: "items")
-        itemTable["title"] = "AppleWatch"
-        itemTable["contactInfo"] = "000-555-1111"
-        itemTable["owner"] = "Ayaka Kyotani"
-        itemTable.saveInBackground {(success: Bool, error: Error?) in
-            if (success) {
-                // The object has been saved.
-                print("Saveing Succeeded")
-            } else {
-                // There was a problem, check error.description
-                print("Saving Error")
-            }
+    }
+    
+    @IBAction func closePO(_ sender: UIButton) {
+        self.detailPopOver.removeFromSuperview()
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if self.tabBarController?.selectedIndex == 0{
+            self.viewDidLoad()
         }
-        """
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,21 +60,23 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ItemTableViewCell
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath) as! ItemTableViewCell
         let cell:ItemTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "CellIdentifier") as! ItemTableViewCell
         
         // Configure Cell
         cell.itemTitle?.text = self.items[indexPath.row]["title"] as? String
-        //cell.itemTitle?.text = ""
         cell.ownerName?.text = self.items[indexPath.row]["owner"] as? String
-        //cell.ownerName?.text = "test2"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let item = items[indexPath.row]
-        //print(item)
+        let item = items[indexPath.row]
+        
+        self.itemTitlePO.text = (item["title"]! as! String)
+        self.ownerNamePO.text = (item["owner"]! as! String)
+        self.contactInfoPO.text = (item["contactInfo"]! as! String)
+        
+        self.view.addSubview(self.detailPopOver)
+        self.detailPopOver.center = self.view.center
     }
 }

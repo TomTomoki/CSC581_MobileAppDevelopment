@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4735C5C1177EFF29FF425DF1 /* Pods_FinalProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9F74FE81656B46FF823D5B8 /* Pods_FinalProject.framework */; };
+		934251BF22786CF7001E7AB3 /* AddItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934251BE22786CF7001E7AB3 /* AddItemController.swift */; };
 		93A3D69F2275019700EF64F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D69E2275019700EF64F6 /* AppDelegate.swift */; };
 		93A3D6A12275019700EF64F6 /* SearchItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A3D6A02275019700EF64F6 /* SearchItemController.swift */; };
 		93A3D6A42275019700EF64F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A3D6A22275019700EF64F6 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		934251BE22786CF7001E7AB3 /* AddItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemController.swift; sourceTree = "<group>"; };
 		93A3D69B2275019700EF64F6 /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A3D69E2275019700EF64F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93A3D6A02275019700EF64F6 /* SearchItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemController.swift; sourceTree = "<group>"; };
@@ -70,8 +72,9 @@
 			isa = PBXGroup;
 			children = (
 				93A3D69E2275019700EF64F6 /* AppDelegate.swift */,
-				93A3D6A02275019700EF64F6 /* SearchItemController.swift */,
 				93A3D6A22275019700EF64F6 /* Main.storyboard */,
+				93A3D6A02275019700EF64F6 /* SearchItemController.swift */,
+				934251BE22786CF7001E7AB3 /* AddItemController.swift */,
 				93A3D6A52275019900EF64F6 /* Assets.xcassets */,
 				93A3D6A72275019900EF64F6 /* LaunchScreen.storyboard */,
 				93A3D6AA2275019900EF64F6 /* Info.plist */,
@@ -210,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				934251BF22786CF7001E7AB3 /* AddItemController.swift in Sources */,
 				93A3D6A12275019700EF64F6 /* SearchItemController.swift in Sources */,
 				93A3D69F2275019700EF64F6 /* AppDelegate.swift in Sources */,
 			);
