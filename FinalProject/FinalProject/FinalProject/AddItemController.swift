@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import Parse
 
 class AddItemController: UIViewController {
     @IBOutlet weak var itemTitle: UITextField!
     @IBOutlet weak var ownerName: UITextField!
     @IBOutlet weak var contactInfo: UITextField!
+    @IBOutlet weak var detail: UITextField!
     @IBOutlet weak var requiredFieldWarning: UILabel!
     @IBOutlet var itemAddedPopOver: UIView!
     
@@ -23,29 +23,20 @@ class AddItemController: UIViewController {
     }
     
     @IBAction func addItem(_ sender: UIButton) {
-        self.view.addSubview(self.itemAddedPopOver)
-        self.itemAddedPopOver.center = self.view.center
-        
         if itemTitle.text! != "" && ownerName.text! != "" && contactInfo.text! != ""{
-            let itemTable = PFObject(className: "items")
-            itemTable["title"] = self.itemTitle.text!
-            itemTable["owner"] = self.ownerName.text!
-            itemTable["contactInfo"] = self.contactInfo.text!
-            itemTable.saveInBackground {(success: Bool, error: Error?) in
-                if (success) {
-                    // The object has been saved.
-                    print("Saveing Succeeded")
-                    self.requiredFieldWarning.isHidden = true
-                    self.itemTitle.text! = ""
-                    self.ownerName.text! = ""
-                    self.contactInfo.text! = ""
-                    
-                    self.view.addSubview(self.itemAddedPopOver)
-                    self.itemAddedPopOver.center = self.view.center
-                } else {
-                    // There was a problem, check error.description
-                    print("Saving Error")
-                }
+            let item = Item(itemTitle: itemTitle.text!, ownerName: ownerName.text!, contactInfo: contactInfo.text!, detail: detail.text!)
+            if (item.saveItem()) {
+                // The object has been saved.
+                self.requiredFieldWarning.isHidden = true
+                self.itemTitle.text! = ""
+                self.ownerName.text! = ""
+                self.contactInfo.text! = ""
+                self.detail.text! = ""
+                self.view.addSubview(self.itemAddedPopOver)
+                self.itemAddedPopOver.center = self.view.center
+            } else {
+                // There was a problem, check error.description
+                print("saveItem returned false")
             }
         } else {
             self.requiredFieldWarning.isHidden = false

@@ -14,7 +14,7 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var ownerName: UILabel!
 }
 
-class SearchItemController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate {
+class SearchItemController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate, UISearchBarDelegate {
    
     let cellIdentifier = "CellIdentifier"
     var items = [PFObject(className: "items")]
@@ -23,6 +23,7 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var itemTitlePO: UILabel!
     @IBOutlet weak var ownerNamePO: UILabel!
     @IBOutlet weak var contactInfoPO: UILabel!
+    @IBOutlet weak var detailPO: UILabel!
     @IBOutlet var detailPopOver: UIView!
     
     
@@ -75,6 +76,12 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
         self.itemTitlePO.text = (item["title"]! as! String)
         self.ownerNamePO.text = (item["owner"]! as! String)
         self.contactInfoPO.text = (item["contactInfo"]! as! String)
+        if let d = item["detail"] {
+            print(d)
+            self.detailPO.text = (d as! String)
+        }
+        
+        //self.detailPO.sizeToFit()
         
         self.view.addSubview(self.detailPopOver)
         self.detailPopOver.center = self.view.center
