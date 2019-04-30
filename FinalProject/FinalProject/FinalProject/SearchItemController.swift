@@ -11,43 +11,72 @@ import Parse
 
 class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var itemTitle: UILabel!
-    @IBOutlet weak var owner: UILabel!
+    @IBOutlet weak var ownerName: UILabel!
 }
 
 class SearchItemController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
     let cellIdentifier = "CellIdentifier"
-    var items: [String] = []
+    var items = [PFObject(className: "items")]
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        items = ["Apple", "Pineapple", "Orange", "Blackberry", "Banana", "Pear", "Kiwi", "Strawberry", "Mango", "Walnut", "Apricot", "Tomato", "Almond", "Date", "Melon", "Water Melon", "Lemon", "Coconut", "Fig", "Passionfruit", "Star Fruit", "Clementin", "Citron", "Cherry", "Cranberry"]
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        let query = PFQuery(className: "items")
+        query.findObjectsInBackground {(data, error) in
+            if error == nil {
+                print("Retriving Succeeded")
+                
+                if let itemData = data {
+                    self.items = itemData
+                    print(self.items)
+                    
+                    self.tableView.reloadData()
+                }
+            } else {
+                print("Retriving Error")
+            }
+        }
+        
+        """
+        let itemTable = PFObject(className: "items")
+        itemTable["title"] = "AppleWatch"
+        itemTable["contactInfo"] = "000-555-1111"
+        itemTable["owner"] = "Ayaka Kyotani"
+        itemTable.saveInBackground {(success: Bool, error: Error?) in
+            if (success) {
+                // The object has been saved.
+                print("Saveing Succeeded")
+            } else {
+                // There was a problem, check error.description
+                print("Saving Error")
+            }
+        }
+        """
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return self.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ItemTableViewCell
-        
-        // Fetch Fruit
-        let item = items[indexPath.row]
+        //let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ItemTableViewCell
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath) as! ItemTableViewCell
+        let cell:ItemTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "CellIdentifier") as! ItemTableViewCell
         
         // Configure Cell
-        cell.itemTitle?.text = item
-        cell.owner?.text = "Tomoki Kyotani"
+        cell.itemTitle?.text = self.items[indexPath.row]["title"] as? String
+        //cell.itemTitle?.text = ""
+        cell.ownerName?.text = self.items[indexPath.row]["owner"] as? String
+        //cell.ownerName?.text = "test2"
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = items[indexPath.row]
-        print(item)
+        //let item = items[indexPath.row]
+        //print(item)
     }
 }
