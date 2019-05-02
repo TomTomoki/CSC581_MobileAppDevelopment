@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let parseConfig = ParseClientConfiguration {
             $0.applicationId = "finalproject-zcofn"
-            $0.server = "http://10.4.134.47:1337/parse"
+            $0.server = "http://10.103.228.35:1337/parse"
         }
         Parse.initialize(with: parseConfig)
         
