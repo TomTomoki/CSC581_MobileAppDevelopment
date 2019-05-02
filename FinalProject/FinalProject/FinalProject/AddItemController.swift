@@ -16,16 +16,17 @@ class AddItemController: UIViewController {
     @IBOutlet weak var requiredFieldWarning: UILabel!
     @IBOutlet var itemAddedPopOver: UIView!
     
+    var dbConnection = DBconnection(className: "items")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.requiredFieldWarning.isHidden = true
     }
     
     @IBAction func addItem(_ sender: UIButton) {
         if itemTitle.text! != "" && ownerName.text! != "" && contactInfo.text! != ""{
             let item = Item(itemTitle: itemTitle.text!, ownerName: ownerName.text!, contactInfo: contactInfo.text!, detail: detail.text!)
-            if (item.saveItem()) {
+            if (dbConnection.saveItem(item: item)) {
                 // The object has been saved.
                 self.requiredFieldWarning.isHidden = true
                 self.itemTitle.text! = ""

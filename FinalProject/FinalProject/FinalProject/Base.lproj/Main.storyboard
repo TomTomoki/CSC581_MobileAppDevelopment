@@ -62,6 +62,7 @@
                                                 <constraint firstItem="a8l-zQ-HsW" firstAttribute="leading" secondItem="AAr-Oi-2Tb" secondAttribute="trailing" constant="10" id="v6C-ZS-bSi"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="itemTitle" destination="Bnw-PN-zEH" id="QCU-y9-NK3"/>
                                             <outlet property="ownerName" destination="a8l-zQ-HsW" id="KRX-XN-u9I"/>
@@ -86,6 +87,21 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="bmt-1j-Cb0"/>
                                 </connections>
                             </searchBar>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0gg-bK-Vgr">
+                                <rect key="frame" x="15" y="130" width="384" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Computers"/>
+                                    <segment title="Furnitures"/>
+                                    <segment title="Phones"/>
+                                    <segment title="Others"/>
+                                </segments>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="selectCategoryFilter:" destination="BYZ-38-t0r" eventType="valueChanged" id="GY9-Ov-IoE"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.83216959239999999" green="0.98548370600000001" blue="0.47333085539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -97,6 +113,7 @@
                         <outlet property="detailPopOver" destination="LDN-39-Xzh" id="2AP-53-KYr"/>
                         <outlet property="itemTitlePO" destination="Qg6-Bg-GGn" id="3QT-5y-Vbk"/>
                         <outlet property="ownerNamePO" destination="LSU-Pt-4YO" id="1yy-Dq-5r5"/>
+                        <outlet property="searchBar" destination="0H0-GK-TtT" id="BTp-KK-Ppf"/>
                         <outlet property="tableView" destination="qGB-Yz-4bL" id="vvf-YP-Rd8"/>
                     </connections>
                 </viewController>
@@ -171,6 +188,7 @@
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYD-43-icU">
                             <rect key="frame" x="182" y="411" width="47" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                             <state key="normal" title="Close"/>
                             <connections>
@@ -301,8 +319,9 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzz-ES-kyq">
-                            <rect key="frame" x="80" y="68" width="65" height="65"/>
+                            <rect key="frame" x="80" y="70" width="47" height="49"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" image="iconfinder_left_172489"/>
                             <connections>
                                 <action selector="closeItemAddedPopOver:" destination="B0n-VP-jSM" eventType="touchUpInside" id="b5p-iI-9PL"/>
@@ -337,6 +356,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKv-IX-SL2">
                                 <rect key="frame" x="146" y="769" width="123" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="30"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>

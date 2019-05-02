@@ -18,6 +18,8 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
    
     let cellIdentifier = "CellIdentifier"
     var items = [PFObject(className: "items")]
+    var searchedItems = [PFObject(className: "items")]
+    var searching = false
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var itemTitlePO: UILabel!
@@ -25,6 +27,7 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var contactInfoPO: UILabel!
     @IBOutlet weak var detailPO: UILabel!
     @IBOutlet var detailPopOver: UIView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     override func viewDidLoad() {
@@ -57,33 +60,69 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.items.count
+        if searching {
+            return self.searchedItems.count
+        } else {
+            return self.items.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ItemTableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "CellIdentifier") as! ItemTableViewCell
         
         // Configure Cell
-        cell.itemTitle?.text = self.items[indexPath.row]["title"] as? String
-        cell.ownerName?.text = self.items[indexPath.row]["owner"] as? String
+        if searching {
+            cell.itemTitle?.text = self.searchedItems[indexPath.row]["title"] as? String
+            cell.ownerName?.text = self.searchedItems[indexPath.row]["owner"] as? String
+        } else {
+            cell.itemTitle?.text = self.items[indexPath.row]["title"] as? String
+            cell.ownerName?.text = self.items[indexPath.row]["owner"] as? String
+        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = items[indexPath.row]
-        
-        self.itemTitlePO.text = (item["title"]! as! String)
-        self.ownerNamePO.text = (item["owner"]! as! String)
-        self.contactInfoPO.text = (item["contactInfo"]! as! String)
-        if let d = item["detail"] {
-            print(d)
-            self.detailPO.text = (d as! String)
+        if searching {
+            let searchedItem = self.searchedItems[indexPath.row]
+            self.itemTitlePO.text = (searchedItem["title"]! as! String)
+            self.ownerNamePO.text = (searchedItem["owner"]! as! String)
+            self.contactInfoPO.text = (searchedItem["contactInfo"]! as! String)
+            if let d = searchedItem["detail"] {
+                self.detailPO.text = (d as! String)
+            }
+        } else {
+            let item = self.items[indexPath.row]
+            self.itemTitlePO.text = (item["title"]! as! String)
+            self.ownerNamePO.text = (item["owner"]! as! String)
+            self.contactInfoPO.text = (item["contactInfo"]! as! String)
+            if let d = item["detail"] {
+                self.detailPO.text = (d as! String)
+            }
         }
         
         //self.detailPO.sizeToFit()
         
         self.view.addSubview(self.detailPopOver)
         self.detailPopOver.center = self.view.center
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchedItems = self.items.filter({($0["title"] as? String)!.lowercased().contains(searchText.lowercased())})
+        print(searchText)
+        print(self.searchedItems)
+        searching = true
+        self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searching = false
+        self.searchBar.text = ""
+        self.tableView.reloadData()
+    }
+    @IBAction func selectCategoryFilter(_ sender: UISegmentedControl) {
+        print(sender.selectedSegmentIndex)
+        
+        
     }
 }
