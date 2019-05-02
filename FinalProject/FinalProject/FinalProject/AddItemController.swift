@@ -16,7 +16,7 @@ class AddItemController: UIViewController {
     @IBOutlet weak var requiredFieldWarning: UILabel!
     @IBOutlet var itemAddedPopOver: UIView!
     
-    var dbConnection = DBconnection(className: "items")
+    let dbConnection = DBconnection(className: "items")
     
     override func viewDidLoad() {
         super.viewDidLoad()

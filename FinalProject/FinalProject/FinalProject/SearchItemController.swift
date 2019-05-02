@@ -17,8 +17,9 @@ class ItemTableViewCell: UITableViewCell {
 class SearchItemController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate, UISearchBarDelegate {
    
     let cellIdentifier = "CellIdentifier"
-    var items = [PFObject(className: "items")]
-    var searchedItems = [PFObject(className: "items")]
+    let dbConnection = DBconnection(className: "items")
+    var items = Array<PFObject>()
+    var searchedItems = Array<PFObject>()
     var searching = false
     
     @IBOutlet weak var tableView: UITableView!
@@ -34,18 +35,12 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         self.tabBarController?.delegate = self
         
-        let query = PFQuery(className: "items")
-        query.findObjectsInBackground {(data, error) in
-            if error == nil {
-                print("Retriving Succeeded")
-                
-                if let itemData = data {
-                    self.items = itemData
-                    self.tableView.reloadData()
-                }
-            } else {
-                print("Retriving Error")
-            }
+        self.items = dbConnection.fetchData()
+        if (self.items.count > 0) {
+            print("Items is not empty")
+            self.tableView.reloadData()
+        } else {
+            print("Items is empty")
         }
     }
     
@@ -109,9 +104,7 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.searchedItems = self.items.filter({($0["title"] as? String)!.lowercased().contains(searchText.lowercased())})
-        print(searchText)
-        print(self.searchedItems)
-        searching = true
+        self.searching = true
         self.tableView.reloadData()
     }
     
@@ -120,6 +113,7 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
         self.searchBar.text = ""
         self.tableView.reloadData()
     }
+    
     @IBAction func selectCategoryFilter(_ sender: UISegmentedControl) {
         print(sender.selectedSegmentIndex)
         

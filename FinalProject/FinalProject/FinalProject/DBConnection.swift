@@ -24,11 +24,18 @@ struct DBconnection {
         
         return result
     }
-}
+    
+    func fetchData() -> Array<PFObject>{
+        let query = PFQuery(className: self.className)
+        var fetchedItems = Array<PFObject>()
+        
+        do {
+            try fetchedItems = query.findObjects()
+            print("Retriving Succeeded")
+        } catch let error{
+            print("Failed to retrieve data: \(error)")
+        }
 
-struct Item {
-    private(set) var itemTitle: String
-    private(set) var ownerName: String
-    private(set) var contactInfo: String
-    private(set) var detail: String
+        return fetchedItems
+    }
 }
