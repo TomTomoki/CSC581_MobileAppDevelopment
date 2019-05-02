@@ -15,21 +15,21 @@ class ItemTableViewCell: UITableViewCell {
 }
 
 class SearchItemController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate, UISearchBarDelegate {
-   
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var itemTitlePO: UILabel!
+    @IBOutlet weak var ownerNamePO: UILabel!
+    @IBOutlet weak var contactInfoPO: UILabel!
+    @IBOutlet weak var categoryPO: UILabel!
+    @IBOutlet weak var detailPO: UILabel!
+    @IBOutlet var detailPopOver: UIView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     let cellIdentifier = "CellIdentifier"
     let dbConnection = DBconnection(className: "items")
     var items = Array<PFObject>()
     var searchedItems = Array<PFObject>()
     var searching = false
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var itemTitlePO: UILabel!
-    @IBOutlet weak var ownerNamePO: UILabel!
-    @IBOutlet weak var contactInfoPO: UILabel!
-    @IBOutlet weak var detailPO: UILabel!
-    @IBOutlet var detailPopOver: UIView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
+    let categories = ["All", "Clothes", "Furnitures", "Books", "Others"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +83,7 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
             self.itemTitlePO.text = (searchedItem["title"]! as! String)
             self.ownerNamePO.text = (searchedItem["owner"]! as! String)
             self.contactInfoPO.text = (searchedItem["contactInfo"]! as! String)
+            self.categoryPO.text = (searchedItem["category"]! as! String)
             if let d = searchedItem["detail"] {
                 self.detailPO.text = (d as! String)
             }
@@ -91,6 +92,7 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
             self.itemTitlePO.text = (item["title"]! as! String)
             self.ownerNamePO.text = (item["owner"]! as! String)
             self.contactInfoPO.text = (item["contactInfo"]! as! String)
+            self.categoryPO.text = (item["category"]! as! String)
             if let d = item["detail"] {
                 self.detailPO.text = (d as! String)
             }
@@ -115,8 +117,14 @@ class SearchItemController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func selectCategoryFilter(_ sender: UISegmentedControl) {
-        print(sender.selectedSegmentIndex)
-        
-        
+       
+        if (sender.selectedSegmentIndex != 0){
+            self.searchedItems = self.items.filter{($0["category"] as? String)! == self.categories[sender.selectedSegmentIndex]}
+            self.searching = true
+            self.tableView.reloadData()
+        } else {
+            searching = false
+            self.tableView.reloadData()
+        }
     }
 }

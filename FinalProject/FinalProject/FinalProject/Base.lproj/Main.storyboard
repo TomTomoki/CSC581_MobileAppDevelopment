@@ -30,8 +30,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="96.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnw-PN-zEH">
-                                                    <rect key="frame" x="30" y="11" width="108" height="39"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Item Registered" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnw-PN-zEH">
+                                                    <rect key="frame" x="30" y="11" width="219" height="39"/>
                                                     <viewLayoutGuide key="safeArea" id="jO2-0a-MHy"/>
                                                     <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="25"/>
                                                     <nil key="textColor"/>
@@ -92,9 +92,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="All"/>
-                                    <segment title="Computers"/>
+                                    <segment title="Clothes"/>
                                     <segment title="Furnitures"/>
-                                    <segment title="Phones"/>
+                                    <segment title="Books"/>
                                     <segment title="Others"/>
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -108,6 +108,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="8Sb-8V-Ah0"/>
                     <connections>
+                        <outlet property="categoryPO" destination="ft4-Nx-qTU" id="UJe-mc-2ic"/>
                         <outlet property="contactInfoPO" destination="dHl-rW-85p" id="lwN-Rm-jem"/>
                         <outlet property="detailPO" destination="LsN-Y9-ySW" id="RaH-Le-PHY"/>
                         <outlet property="detailPopOver" destination="LDN-39-Xzh" id="2AP-53-KYr"/>
@@ -195,6 +196,13 @@
                                 <action selector="closePO:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mIw-OT-VY8"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ft4-Nx-qTU" userLabel="categoryPO">
+                            <rect key="frame" x="189" y="214" width="201" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.86019058028499384" green="0.9868551980735718" blue="0.99336069822311401" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <viewLayoutGuide key="safeArea" id="rPT-W2-gOO"/>
@@ -280,19 +288,27 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qxm-Gd-R9p">
-                                <rect key="frame" x="51" y="431" width="132" height="35"/>
+                                <rect key="frame" x="51" y="478" width="132" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bq0-R9-8U9" userLabel="detailInput">
-                                <rect key="frame" x="218" y="436" width="176" height="30"/>
+                                <rect key="frame" x="218" y="485" width="176" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GhH-WF-4YF">
+                                <rect key="frame" x="218" y="363" width="176" height="107"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="B0n-VP-jSM" id="iLI-cO-kTL"/>
+                                    <outlet property="delegate" destination="B0n-VP-jSM" id="RmP-fo-TQk"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="0.83216959239999999" green="0.98548370600000001" blue="0.47333085539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="toA-PS-ck0"/>
@@ -304,6 +320,7 @@
                         <outlet property="itemAddedPopOver" destination="tw4-NT-rCZ" id="WUc-pF-lZl"/>
                         <outlet property="itemTitle" destination="lDC-o4-DkJ" id="HeO-ak-nk7"/>
                         <outlet property="ownerName" destination="LiB-cM-BSr" id="yhB-B8-U2e"/>
+                        <outlet property="pickerView" destination="GhH-WF-4YF" id="rdU-1I-NGV"/>
                         <outlet property="requiredFieldWarning" destination="F06-7M-jg4" id="Nid-pQ-TVR"/>
                     </connections>
                 </viewController>
@@ -319,10 +336,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzz-ES-kyq">
-                            <rect key="frame" x="80" y="70" width="47" height="49"/>
+                            <rect key="frame" x="170" y="433" width="47" height="49"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <state key="normal" image="iconfinder_left_172489"/>
+                            <state key="normal" title="OK">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
                             <connections>
                                 <action selector="closeItemAddedPopOver:" destination="B0n-VP-jSM" eventType="touchUpInside" id="b5p-iI-9PL"/>
                             </connections>
@@ -347,14 +366,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SpL-vc-JYW">
-                                <rect key="frame" x="146" y="769" width="123" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="30"/>
-                                <state key="normal" title="Log In"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKv-IX-SL2">
-                                <rect key="frame" x="146" y="769" width="123" height="30"/>
+                                <rect key="frame" x="146" y="601" width="123" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="30"/>
@@ -363,6 +376,20 @@
                                     <segue destination="ypi-lu-5qa" kind="showDetail" id="jYu-iS-6QL"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By Tomoki Kyotani" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWt-Yb-BlL">
+                                <rect key="frame" x="125" y="733" width="165" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="By Tomoki Kyotani" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xE-4a-irv">
+                                <rect key="frame" x="125" y="218" width="182" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="KohinoorBangla-Regular" family="Kohinoor Bangla" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.83216959239999999" green="0.98548370600000001" blue="0.47333085539999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="u03-qb-Rh9"/>
@@ -393,7 +420,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="iconfinder_left_172489" width="128" height="128"/>
         <image name="icons8-plus-25" width="25" height="25"/>
     </resources>
 </document>

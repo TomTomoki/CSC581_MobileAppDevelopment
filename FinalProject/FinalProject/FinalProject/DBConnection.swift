@@ -11,10 +11,10 @@ struct DBconnection {
         itemTable["title"] = item.itemTitle
         itemTable["owner"] = item.ownerName
         itemTable["contactInfo"] = item.contactInfo
+        itemTable["category"] = item.category
         itemTable["detail"] = item.detail
         
         var result = false
-        
         do {
             try itemTable.save()
             result = true

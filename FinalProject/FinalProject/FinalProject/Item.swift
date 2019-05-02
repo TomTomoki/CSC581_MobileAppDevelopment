@@ -12,5 +12,6 @@ struct Item {
     private(set) var itemTitle: String
     private(set) var ownerName: String
     private(set) var contactInfo: String
+    private(set) var category: String
     private(set) var detail: String
 }
